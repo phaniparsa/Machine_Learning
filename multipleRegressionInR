@@ -1,0 +1,22 @@
+#Multiple Regression model for predicting milagePerGallon given cylinderDisplacement, horsePower, weight.
+input_Data <- mtcars[, c("mpg", "disp", "hp", "wt")]
+
+#Constructing prediction model using lm()
+predict_mpg <- lm(mpg~disp+hp+wt, input_Data)
+
+#Extracting coefficients
+intercept <- coef(predict_mpg)[1]
+Xdisp <- coef(predict_mpg)[2]
+Xhp <- coef(predict_mpg)[3]
+Xwt <- coef(predict_mpg)[4]
+
+#Forming an equation from the coefficients.
+Y = intercept + Xdisp*160 + Xhp*110 + Xwt*2.62;
+print(Y)
+
+#Preparing data for using with predict function.
+input_PData <- data.frame(disp=160, hp=110, wt=2.62)
+print(input_PData)
+
+#Predicted value is:
+print(predict(predict_mpg, input_PData))
